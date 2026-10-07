@@ -18,8 +18,7 @@
                 int randomNumber = random.Next(1, 21);
 
                 // Greet the user
-                string greeting = "Välkommen! Jag tänker på ett nummer mellan 1-20. Kan du gissa vilket? Du får fem försök.";
-                Console.WriteLine(greeting);
+                Console.WriteLine("Välkommen! Jag tänker på ett nummer mellan 1-20. Kan du gissa vilket? Du får fem försök.");
 
                 // Set the start values
                 int guessCounter = 0;
@@ -31,35 +30,25 @@
                     // The user gets to guess
                     string userInput = Console.ReadLine() ?? "";
 
-                    if (!string.IsNullOrWhiteSpace(userInput))
+                    // Only go into this statement if userInput is an integer
+                    if (!string.IsNullOrWhiteSpace(userInput) && int.TryParse(userInput, out numberGuess))
                     {
-                        // If userInput is an integer, set numberGuess to the int value
-                        if (int.TryParse(userInput, out numberGuess))
-                        {
-                            // Send the parameters to the method
-                            CheckGuess(numberGuess, randomNumber);
+                        // Send the parameters to the method
+                        CheckGuess(numberGuess, randomNumber);
 
-                            // Exit the loop if right answer
-                            if (numberGuess == randomNumber)
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                // Add one round to the counter and go to next round
-                                guessCounter += 1;
-                                continue;
-                            }
+                        // Exit the loop if right answer
+                        if (numberGuess == randomNumber)
+                        {
+                            break;
                         }
-                        // If userInput is not an integer, ask again
                         else
                         {
-                            Console.WriteLine("Skriv in ett heltal.");
+                            // Add one round to the counter and go to next round
+                            guessCounter += 1;
                             continue;
                         }
                     }
-                    // If user pressed Enter without entering anything, ask again
-                    else
+                    else // If userInput is not an integer, ask again
                     {
                         Console.WriteLine("Skriv in ett heltal.");
                         continue;
